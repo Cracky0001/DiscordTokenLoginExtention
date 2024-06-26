@@ -1,26 +1,35 @@
 {
-    "manifest_version": 3,
-    "name": "Discord Token Login",
-    "version": "1.0.1",  
-    "author": "Cracky",
-    "description": "Adds a token login option to the Discord login page.",
-    "permissions": [
-      "activeTab",
-      "tabs"
-    ],
-    "content_scripts": [
-      {
-        "matches": ["https://discord.com/login"],
-        "js": ["content.js"]
-      }
-    ],
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "tl.png",
-        "48": "tl.png",
-        "128": "tl.png"
-      }
+  "manifest_version": 3,
+  "name": "Discord Token Login",
+  "version": "1.0.2",  
+  "author": "Cracky",
+  "description": "Adds a token login option to the Discord login page.",
+  "homepage_url": "https://github.com/Cracky0001/DiscordTokenLoginExtention",
+
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://discord.com/login*"],
+      "js": ["content.js"]
     }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "tl.png",
+      "48": "tl.png",
+      "128": "tl.png"
+    }
+  },
+  "icons": {
+    "16": "tl.png",
+    "48": "tl.png",
+    "128": "tl.png"
   }
- 
+}
