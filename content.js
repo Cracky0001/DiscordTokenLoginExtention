@@ -1,4 +1,11 @@
-// CSS für die UI hinzufügen
+// Take information from the manifest.json file to display it in the UI (version, author, repository URL) 
+// And i like to write some jokes in my code, so don't be surprised if you see some. :D
+const manifestData = chrome.runtime.getManifest();
+const version = manifestData.version;
+const author = "Cracky";
+const repositoryUrl = "https://github.com/Cracky0001/DiscordTokenLoginExtention";
+
+// CSS
 const style = document.createElement('style');
 style.textContent = `
   #token-login-div {
@@ -15,27 +22,30 @@ style.textContent = `
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    border: 1px solid #72767d;
-    background-color: #40444B;
+    border: 1px solid #202225; 
+    background-color: #202225; 
     color: white;
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
   #token-login-div button {
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #7289DA;
+    background-color: #5865F2; 
     color: white;
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
   }
   #token-login-div button:hover {
-    background-color: #5b6eae;
+    background-color: #4752c4; 
   }
   #token-login-div label {
     font-size: 14px;
     color: #b9bbbe;
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
   #loading-bar {
     display: none;
@@ -49,7 +59,7 @@ style.textContent = `
   #loading-bar div {
     width: 0;
     height: 10px;
-    background-color: #7289DA;
+    background-color: #5865F2;
     border-radius: 5px;
     transition: width 2s;
   }
@@ -62,11 +72,25 @@ style.textContent = `
     color: white;
     font-size: 12px;
     font-weight: bold;
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  #info {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #b9bbbe;
+    text-align: center;
+  }
+  #info a {
+    color: #5865F2;
+    text-decoration: none;
+  }
+  #info a:hover {
+    text-decoration: underline;
   }
 `;
 document.head.appendChild(style);
 
-// Erstellen des UI Elements
+// Create the token login UI. Damn, I'm so good at writing comments. :D
 function createTokenLoginUI() {
   const tokenLoginDiv = document.createElement('div');
   tokenLoginDiv.id = 'token-login-div';
@@ -77,7 +101,7 @@ function createTokenLoginUI() {
   tokenLoginDiv.appendChild(tokenLabel);
 
   const tokenInput = document.createElement('input');
-  tokenInput.type = 'password';
+  tokenInput.type = 'password';  // Will be displayed as dots (******). Oh btw, do u want have sex with me? ;)
   tokenInput.id = 'token-input';
   tokenInput.placeholder = 'Enter your token here';
   tokenLoginDiv.appendChild(tokenInput);
@@ -100,7 +124,12 @@ function createTokenLoginUI() {
   loadingBar.appendChild(loadingText);
   tokenLoginDiv.appendChild(loadingBar);
 
-  // UI unter den normalen Anmeldefeldern einfügen
+  const infoDiv = document.createElement('div');
+  infoDiv.id = 'info';
+  infoDiv.innerHTML = `Created by ${author} - Version ${version} - <a href="${repositoryUrl}" target="_blank">GitHub Repository</a>`;
+  tokenLoginDiv.appendChild(infoDiv);
+
+  // Insert the token login div into the login form if it exists. Brother Ehhhh, whats that?
   const loginForm = document.querySelector('form');
   if (loginForm) {
     loginForm.appendChild(tokenLoginDiv);
@@ -109,7 +138,7 @@ function createTokenLoginUI() {
   }
 }
 
-// Funktion zum Einloggen mit Token
+// Overwrite the localStorage token with the new token. Token, like the brother from South Park? 
 function loginWithToken(token) {
   if (!token) {
     alert('Please enter a token.');
@@ -128,7 +157,7 @@ function loginWithToken(token) {
   }
 }
 
-// Funktion zum Anzeigen des Ladebalkens
+// Show the loading bar when logging in. Yeah, I'm a good developer.... No i am not a developer.
 function showLoadingBar() {
   const loadingBar = document.getElementById('loading-bar');
   loadingBar.style.display = 'block';
@@ -136,19 +165,12 @@ function showLoadingBar() {
   loadingProgress.style.width = '100%';
 }
 
-// Überprüfen, ob der Benutzer auf der Login-Seite ist
-function isLoginPage() {
-  return window.location.href === 'https://discord.com/login';
-}
-
-// UI einfügen, wenn die Seite geladen ist
+// Initialize the UI. It stinks like a fart in here, but it's not me, I swear.
 window.addEventListener('load', () => {
-  if (isLoginPage()) {
-    createTokenLoginUI();
-  } else {
-    const tokenLoginDiv = document.getElementById('token-login-div');
-    if (tokenLoginDiv) {
-      tokenLoginDiv.remove();
-    }
-  }
+  createTokenLoginUI();
 });
+
+// All rights reserved to Cracky... No it's just a joke, you can use it as you want.
+// But please don't share nude pictures of me, I'm shy. ;)
+// Are you still reading this? You're a good person, I like you. <3
+// Ok, I stop now. Bye! :D
