@@ -1,13 +1,16 @@
-// Nimm die Information aus der manifest.json Datei, um sie in der UI anzuzeigen (Version, Autor, Repository-URL)
+// If you want to see my code, you will see bullshit comments like this
+// My Balls are itching, I need to scratch them
+
+// Sniff infos from manifest.json. Thats Cringe... i mean why not just hardcode it?
 const manifestData = chrome.runtime.getManifest();
 const version = manifestData.version;
 const author = "Cracky";
 const repositoryUrl = "https://github.com/Cracky0001/DiscordTokenLoginExtention";
 
-// Ermittelt die URL des neuen Bildes
+// background image url. You can change it to whatever you want... maybe a dick pic?
 const newImageUrl = 'https://cdn.discordapp.com/attachments/949646895565922374/1255529285696098334/background.png?ex=667d7644&is=667c24c4&hm=bb9a2229bec1b0fadb8e3fc1c6766ecb42d707e527686771afcbf410241a2e57&';
 
-// CSS
+// CSS. i hate css
 const style = document.createElement('style');
 style.textContent = `
   body {
@@ -101,9 +104,8 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Warte, bis die Seite vollständig geladen ist
+// wait for the page to load. Maybe it will work better if i dont wait for the page to load? You can try it out. I love spaghetti code
 window.addEventListener('load', function() {
-  // Ändere das Bild im <img> Element mit der Klasse "artwork_bdd070"
   var artworkImage = document.querySelector('.artwork_bdd070');
   if (artworkImage) {
     artworkImage.src = newImageUrl;
@@ -112,7 +114,7 @@ window.addEventListener('load', function() {
     chrome.runtime.sendMessage({ type: 'error', data: 'Original image not found' });
   }
 
-  // Überprüfe, ob das neue Bild geladen wurde
+  // Check if the new image is loaded successfully. Damn i want to eat some spaghetti
   var img = new Image();
   img.onload = function() {
     chrome.runtime.sendMessage({ type: 'log', data: 'New image loaded successfully' });
@@ -122,11 +124,11 @@ window.addEventListener('load', function() {
   };
   img.src = newImageUrl;
 
-  // Erstelle die Token-Login-UI
+  // create the token login UI. is there a way to eat the sun? I want to eat the sun!
   createTokenLoginUI();
 });
 
-// Erstelle die Token-Login-UI
+// In germany we say "Halt die Fresse du dummer Hursohn" which means "Create the token login UI"
 function createTokenLoginUI() {
   var tokenLoginDiv = document.createElement('div');
   tokenLoginDiv.id = 'token-login-div';
@@ -165,7 +167,7 @@ function createTokenLoginUI() {
   infoDiv.innerHTML = 'Created by ' + author + ' - Version ' + version + ' - <a href="' + repositoryUrl + '" target="_blank">GitHub Repository</a>';
   tokenLoginDiv.appendChild(infoDiv);
 
-  // Füge das Token-Login-Div in das Login-Formular ein, wenn es existiert.
+  // Append the token login UI to the form if it exists, otherwise append it to the body. I wish my dog can talk to me
   var loginForm = document.querySelector('form');
   if (loginForm) {
     loginForm.appendChild(tokenLoginDiv);
@@ -176,7 +178,7 @@ function createTokenLoginUI() {
   }
 }
 
-// Überschreibe das localStorage Token mit dem neuen Token.
+// Override the Discord token with the provided token and reload the page. Why do i have to explain this? I want to eat some spaghetti
 function loginWithToken(token) {
   if (!token) {
     alert('Please enter a token.');
@@ -195,10 +197,16 @@ function loginWithToken(token) {
   login(token);
 }
 
-// Zeige die Ladeleiste beim Einloggen an.
+// Show the loading bar. Pls dont do drugs kids
 function showLoadingBar() {
   var loadingBar = document.getElementById('loading-bar');
   loadingBar.style.display = 'block';
   var loadingProgress = loadingBar.firstChild;
   loadingProgress.style.width = '100%';
 }
+
+// Hi my name is Cracky and i love you all. I hope you enjoyed my code. 
+// I will eat your @ss if you dont like my code.
+// I hope you are a hot E-Girl so i can eat your @ss and your pussy at the same time.
+
+// I love you all. Bye Bye
