@@ -1,6 +1,6 @@
 // Take information from the manifest.json file to display it in the UI (version, author, repository URL) 
 // And i like to write some jokes in my code, so don't be surprised if you see some. :D
-const manifestData = chrome.runtime.getManifest();
+const manifestData = chrome.runtime.getManifest(); // i fergot to update the version number in the manifest.json file SORRY :(
 const version = manifestData.version;
 const author = "Cracky";
 const repositoryUrl = "https://github.com/Cracky0001/DiscordTokenLoginExtention";

@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Discord Token Login",
-    "version": "1.0",
+    "version": "1.0.1",  // i fergot to update the version number in the file SORRY :(
     "author": "Cracky",
     "description": "Adds a token login option to the Discord login page.",
     "permissions": [
@@ -23,4 +23,4 @@
       }
     }
   }
-  
+  // i fergot to update the version number in the manifest.json file SORRY :(
