@@ -5,7 +5,7 @@ const author = "Cracky";
 const repositoryUrl = "https://github.com/Cracky0001/DiscordTokenLoginExtention";
 
 // Ermittelt die URL des neuen Bildes
-const newImageUrl = 'https://cdn.discordapp.com/attachments/949646895565922374/1255513022533734400/background.png?ex=667d671e&is=667c159e&hm=7c56ccaf3cfa1e69433c44f1a1d37ef3c2839cd3670207afaced3eb1950d8a65&';
+const newImageUrl = 'https://cdn.discordapp.com/attachments/949646895565922374/1255529285696098334/background.png?ex=667d7644&is=667c24c4&hm=bb9a2229bec1b0fadb8e3fc1c6766ecb42d707e527686771afcbf410241a2e57&';
 
 // CSS
 const style = document.createElement('style');
