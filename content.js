@@ -167,7 +167,7 @@ function createTokenLoginUI() {
   infoDiv.innerHTML = 'Created by ' + author + ' - Version ' + version + ' - <a href="' + repositoryUrl + '" target="_blank">GitHub Repository</a>';
   tokenLoginDiv.appendChild(infoDiv);
 
-  // Append the token login UI to the form if it exists, otherwise append it to the body. I wish my dog can talk to me
+  // Append the token login UI to the form if it exists, otherwise append it to the body. I wish my dog can talk to me. I dont have a dog.
   var loginForm = document.querySelector('form');
   if (loginForm) {
     loginForm.appendChild(tokenLoginDiv);
@@ -207,6 +207,6 @@ function showLoadingBar() {
 
 // Hi my name is Cracky and i love you all. I hope you enjoyed my code. 
 // I will eat your @ss if you dont like my code.
-// I hope you are a hot E-Girl so i can eat your @ss and your pussy at the same time.
+// I hope you are a hot E-Girl so i can eat your @ss and your pu$$y at the same time.
 
 // I love you all. Bye Bye
