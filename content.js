@@ -205,6 +205,18 @@ function showLoadingBar() {
   loadingProgress.style.width = '100%';
 }
 
+// Play background music.
+// idfk why it doesnt work. It will only work if you go to Discord Website and then click on the Login Button. I hate my old math teacher
+
+/*window.addEventListener('load', function() {
+  var audio = document.createElement('audio');
+  audio.src = chrome.runtime.getURL('background-music.mp3');
+  audio.autoplay = true;
+  audio.loop = true;
+  audio.style.display = 'none'; // Hide the audio player. I want Psychedelic drugs right now so i can see the music.
+  document.body.appendChild(audio);
+});*/
+
 // Hi my name is Cracky and i love you all. I hope you enjoyed my code. 
 // I will eat your @ss if you dont like my code.
 // I hope you are a hot E-Girl so i can eat your @ss and your pu$$y at the same time.

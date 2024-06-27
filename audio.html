@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+      width: 200px;
+    }
+    audio {
+      width: 100%;
+    }
+    button {
+      background-color: #7289DA;
+      color: white;
+      border: none;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #5b6eae;
+    }
+  </style>
+</head>
+<body>
+  <audio id="background-audio" controls autoplay loop>
+    <source src="your-audio-file.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <button id="mute-button">Mute</button>
+  <script src="audio.js"></script>
+</body>
+</html>

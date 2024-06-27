@@ -1,11 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Discord Token Login",
-  "version": "1.1.1",  
+  "version": "1.1.1",
   "author": "Cracky",
   "description": "Adds a token login option to the Discord login page.",
   "homepage_url": "https://github.com/Cracky0001/DiscordTokenLoginExtention",
-
   "permissions": [
     "activeTab",
     "tabs"
@@ -31,5 +30,11 @@
     "16": "tl.png",
     "48": "tl.png",
     "128": "tl.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["background-music.mp3"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
