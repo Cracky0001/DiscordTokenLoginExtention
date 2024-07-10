@@ -8,7 +8,7 @@ const author = "Cracky";
 const repositoryUrl = "https://github.com/Cracky0001/DiscordTokenLoginExtention";
 
 // background image url. You can change it to whatever you want... maybe a dick pic?
-const newImageUrl = 'https://cdn.discordapp.com/attachments/949646895565922374/1255529285696098334/background.png?ex=667d7644&is=667c24c4&hm=bb9a2229bec1b0fadb8e3fc1c6766ecb42d707e527686771afcbf410241a2e57&';
+const newImageUrl = 'https://i.imgur.com/O8fMNgw.png';
 
 // CSS. i hate css
 const style = document.createElement('style');
