@@ -1,224 +1,57 @@
-// If you want to see my code, you will see bullshit comments like this
-// My Balls are itching, I need to scratch them
+/*
+ * Content script for the Discord Token Login extension.
+ *
+ * This script listens for messages from the popup and, when instructed,
+ * injects the provided token into Discord's localStorage to perform a token
+ * login. It intentionally does not modify the page's UI or styles.
+ */
 
-// Sniff infos from manifest.json. Thats Cringe... i mean why not just hardcode it?
-const manifestData = chrome.runtime.getManifest();
-const version = manifestData.version;
-const author = "Cracky";
-const repositoryUrl = "https://github.com/Cracky0001/DiscordTokenLoginExtention";
-
-// background image url. You can change it to whatever you want... maybe a dick pic?
-const newImageUrl = 'https://i.imgur.com/O8fMNgw.png';
-
-// CSS. i hate css
-const style = document.createElement('style');
-style.textContent = `
-  body {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow: hidden; /* Verhindert Scrollen */
+// Listen for messages from the extension (e.g., the popup).
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message && message.action === 'tokenLogin' && message.token) {
+    loginWithToken(message.token);
+    // Respond to let the sender know the message was handled.
+    sendResponse({ status: 'success' });
   }
-  .content-1SgpWY, .content-2hZxGK, .mainBackground-1unmG6, .background-3tZjzH {
-    background: none !important;
-  }
-  #token-login-div {
-    background-color: #36393F;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: white;
-    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin-top: 20px;
-  }
-  #token-login-div input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #202225;
-    background-color: #202225;
-    color: white;
-    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  #token-login-div button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #5865F2;
-    color: white;
-    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  #token-login-div button:hover {
-    background-color: #4752c4;
-  }
-  #token-login-div label {
-    font-size: 14px;
-    color: #b9bbbe;
-    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  #loading-bar {
-    display: none;
-    width: 100%;
-    background-color: #40444B;
-    border-radius: 5px;
-    margin-top: 10px;
-    position: relative;
-    text-align: center;
-  }
-  #loading-bar div {
-    width: 0;
-    height: 10px;
-    background-color: #5865F2;
-    border-radius: 5px;
-    transition: width 2s;
-  }
-  #loading-bar span {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  #info {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #b9bbbe;
-    text-align: center;
-  }
-  #info a {
-    color: #5865F2;
-    text-decoration: none;
-  }
-  #info a:hover {
-    text-decoration: underline;
-  }
-`;
-document.head.appendChild(style);
-
-// wait for the page to load. Maybe it will work better if i dont wait for the page to load? You can try it out. I love spaghetti code
-window.addEventListener('load', function() {
-  var artworkImage = document.querySelector('.artwork_bdd070');
-  if (artworkImage) {
-    artworkImage.src = newImageUrl;
-    chrome.runtime.sendMessage({ type: 'log', data: 'Original image src changed to new background image' });
-  } else {
-    chrome.runtime.sendMessage({ type: 'error', data: 'Original image not found' });
-  }
-
-  // Check if the new image is loaded successfully. Damn i want to eat some spaghetti
-  var img = new Image();
-  img.onload = function() {
-    chrome.runtime.sendMessage({ type: 'log', data: 'New image loaded successfully' });
-  };
-  img.onerror = function() {
-    chrome.runtime.sendMessage({ type: 'error', data: 'Failed to load new image' });
-  };
-  img.src = newImageUrl;
-
-  // create the token login UI. is there a way to eat the sun? I want to eat the sun!
-  createTokenLoginUI();
 });
 
-// In germany we say "Halt die Fresse du dummer Hursohn" which means "Create the token login UI"
-function createTokenLoginUI() {
-  var tokenLoginDiv = document.createElement('div');
-  tokenLoginDiv.id = 'token-login-div';
-
-  var tokenLabel = document.createElement('label');
-  tokenLabel.htmlFor = 'token-input';
-  tokenLabel.innerText = 'Token Login:';
-  tokenLoginDiv.appendChild(tokenLabel);
-
-  var tokenInput = document.createElement('input');
-  tokenInput.type = 'password';
-  tokenInput.id = 'token-input';
-  tokenInput.placeholder = 'Enter your token here';
-  tokenLoginDiv.appendChild(tokenInput);
-
-  var loginButton = document.createElement('button');
-  loginButton.innerText = 'Login';
-  loginButton.onclick = function() {
-    var token = document.getElementById('token-input').value;
-    showLoadingBar();
-    loginWithToken(token);
-  };
-  tokenLoginDiv.appendChild(loginButton);
-
-  var loadingBar = document.createElement('div');
-  loadingBar.id = 'loading-bar';
-  var loadingProgress = document.createElement('div');
-  var loadingText = document.createElement('span');
-  loadingText.innerText = 'Logging In...';
-  loadingBar.appendChild(loadingProgress);
-  loadingBar.appendChild(loadingText);
-  tokenLoginDiv.appendChild(loadingBar);
-
-  var infoDiv = document.createElement('div');
-  infoDiv.id = 'info';
-  infoDiv.innerHTML = 'Created by ' + author + ' - Version ' + version + ' - <a href="' + repositoryUrl + '" target="_blank">GitHub Repository</a>';
-  tokenLoginDiv.appendChild(infoDiv);
-
-  // Append the token login UI to the form if it exists, otherwise append it to the body. I wish my dog can talk to me. I dont have a dog.
-  var loginForm = document.querySelector('form');
-  if (loginForm) {
-    loginForm.appendChild(tokenLoginDiv);
-    chrome.runtime.sendMessage({ type: 'log', data: 'Token login UI created and appended to form' });
-  } else {
-    document.body.appendChild(tokenLoginDiv);
-    chrome.runtime.sendMessage({ type: 'log', data: 'Token login UI created and appended to body' });
-  }
-}
-
-// Override the Discord token with the provided token and reload the page. Why do i have to explain this? I want to eat some spaghetti
+/**
+ * Performs a token-based login by repeatedly injecting the provided token into
+ * localStorage via an iframe. After a short delay, the page reloads to
+ * complete the login process.
+ *
+ * @param {string} token - The Discord authentication token.
+ */
 function loginWithToken(token) {
-  if (!token) {
-    alert('Please enter a token.');
+  if (!token || typeof token !== 'string') {
+    console.warn('Discord Token Login: no token provided or invalid token.');
     return;
   }
 
-  function login(token) {
-    setInterval(() => {
-      document.body.appendChild(document.createElement('iframe')).contentWindow.localStorage.token = `"${token}"`;
+  // Helper function to perform the injection and reload.
+  function performLogin(tok) {
+    // Repeatedly set the token in an iframe's localStorage. This is a common
+    // technique used by token login extensions to bypass Discord's login form.
+    const interval = setInterval(() => {
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      try {
+        iframe.contentWindow.localStorage.token = `"${tok}"`;
+      } catch (err) {
+        console.error('Discord Token Login: failed to set token in localStorage:', err);
+      }
+      document.body.removeChild(iframe);
     }, 50);
+
+    // After a short delay, stop setting the token and reload the page to apply
+    // the token. The delay allows the token to be set a few times before
+    // reloading.
     setTimeout(() => {
-      location.reload();
-    }, 0);
+      clearInterval(interval);
+      window.location.reload();
+    }, 500);
   }
 
-  login(token);
+  performLogin(token);
 }
-
-// Show the loading bar. Pls dont do drugs kids
-function showLoadingBar() {
-  var loadingBar = document.getElementById('loading-bar');
-  loadingBar.style.display = 'block';
-  var loadingProgress = loadingBar.firstChild;
-  loadingProgress.style.width = '100%';
-}
-
-// Play background music.
-// idfk why it doesnt work. It will only work if you go to Discord Website and then click on the Login Button. I hate my old math teacher
-
-/*window.addEventListener('load', function() {
-  var audio = document.createElement('audio');
-  audio.src = chrome.runtime.getURL('background-music.mp3');
-  audio.autoplay = true;
-  audio.loop = true;
-  audio.style.display = 'none'; // Hide the audio player. I want Psychedelic drugs right now so i can see the music.
-  document.body.appendChild(audio);
-});*/
-
-// Hi my name is Cracky and i love you all. I hope you enjoyed my code. 
-// I will eat your @ss if you dont like my code.
-// I hope you are a hot E-Girl so i can eat your @ss and your pu$$y at the same time.
-
-// I love you all. Bye Bye

@@ -27,20 +27,6 @@ This browser extension adds a token login option to the Discord login page. It a
 5. **Verify the Extension**
    - The extension should now be loaded into Chrome. You should see the extension icon in the toolbar.
 
-### Firefox
-
-1. **Clone or Download this Repository**
-   - Clone this repository to your local machine using `git clone` or download the ZIP file and extract it.
-
-2. **Navigate to about:debugging**
-   - Open your Firefox browser and navigate to `about:debugging`.
-
-3. **Click on "This Firefox"**
-   - Click on "Load Temporary Add-on" and select the `manifest.json` file from the directory where you cloned or extracted the repository.
-
-4. **Verify the Extension**
-   - The extension should now be loaded into Firefox. You should see the extension icon in the toolbar.
-
 ### Edge
 
 1. **Clone or Download this Repository**
